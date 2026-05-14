@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Technology Blog Page — Wireframe</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=DM+Sans:wght@400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #F5F5F3;
+    --surface: #FFFFFF;
+    --border: #D4D4D4;
+    --border-light: #E8E8E6;
+    --text-primary: #1A1A1A;
+    --text-secondary: #6B6B6B;
+    --text-muted: #999999;
+    --placeholder: #C8C8C8;
+    --accent: #E63946;
+    --annotation: #2563EB;
+    --annotation-bg: #EFF6FF;
+    --annotation-border: #93C5FD;
+    --tag-bg: #F0F0EE;
+    --img-bg: #E0E0DE;
+    --font-mono: 'IBM Plex Mono', monospace;
+    --font-sans: 'DM Sans', sans-serif;
+  }
+
+  body {
+    background: #E8E8E6;
+    font-family: var(--font-sans);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Page wrapper ── */
+  .page-title {
+    text-align: center;
+    padding: 48px 0 16px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+  .page-title span { color: var(--accent); }
+  .page-subtitle {
+    text-align: center;
+    font-family: var(--font-sans);
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+  .page-desc {
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 40px;
+  }
+
+  /* ── Layout columns ── */
+  .wireframes-container {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    padding: 0 32px 80px;
+    align-items: flex-start;
+  }
+
+  .wireframe-col {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+  }
+  .wireframe-col.desktop { width: 1200px; flex-shrink: 0; }
+  .wireframe-col.mobile { width: 375px; flex-shrink: 0; }
+
+  .device-label {
+    background: var(--text-primary);
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    text-align: center;
+  }
+
+  /* ── Annotations ── */
+  .annotation {
+    position: absolute;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--annotation);
+    background: var(--annotation-bg);
+    border: 1px solid var(--annotation-border);
+    border-radius: 3px;
+    padding: 4px 8px;
+    z-index: 10;
+    line-height: 1.4;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  .annotation::before {
+    content: '●';
+    margin-right: 4px;
+    font-size: 7px;
+    vertical-align: middle;
+  }
+
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--annotation);
+    background: var(--annotation-bg);
+    border: 1px dashed var(--annotation-border);
+    border-radius: 3px;
+    padding: 6px 12px;
+    margin-bottom: 12px;
+    display: inline-block;
+  }
+
+  /* ── Shared wireframe elements ── */
+  .img-placeholder {
+    background: var(--img-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--placeholder);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 1px;
+    overflow: hidden;
+    position: relative;
+  }
+  .img-placeholder::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 8px,
+      rgba(0,0,0,0.03) 8px,
+      rgba(0,0,0,0.03) 9px
+    );
+  }
+
+  .text-line {
+    height: 10px;
+    background: var(--placeholder);
+    border-radius: 2px;
+    margin-bottom: 6px;
+  }
+  .text-line.title { height: 14px; background: var(--text-primary); border-radius: 2px; }
+  .text-line.title-lg { height: 20px; background: var(--text-primary); border-radius: 2px; }
+  .text-line.short { width: 60%; }
+  .text-line.medium { width: 80%; }
+  .text-line.tiny { width: 35%; height: 8px; background: var(--text-muted); }
+
+  .cat-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: var(--accent);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 2px;
+    margin-bottom: 8px;
+  }
+
+  .meta-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+  }
+  .meta-dot { width: 3px; height: 3px; background: var(--text-muted); border-radius: 50%; }
+  .meta-avatar { width: 16px; height: 16px; background: var(--img-bg); border-radius: 50%; flex-shrink: 0; }
+
+  /* ══════════════════════════════════════
+     DESKTOP WIREFRAME
+     ══════════════════════════════════════ */
+
+  .d-inner { padding: 0; }
+
+  /* ── Site header mockup ── */
+  .site-header {
+    background: #1A1A1A;
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+  }
+  .site-header .logo {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 22px;
+    color: white;
+    letter-spacing: -0.5px;
+  }
+  .site-header .logo span { color: var(--accent); }
+  .site-header .nav {
+    display: flex;
+    gap: 24px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #888;
+  }
+  .site-header .nav .active { color: white; }
+
+  /* ── Ad banner mockup ── */
+  .ad-banner {
+    background: #FFF3CD;
+    border: 1px dashed #D4A017;
+    text-align: center;
+    padding: 12px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: #8B7000;
+    letter-spacing: 1px;
+  }
+
+  /* ── Section 1: breadcrumb + title ── */
+  .s1-header {
+    padding: 32px 48px 24px;
+    border-bottom: 1px solid var(--border-light);
+    position: relative;
+  }
+  .breadcrumb {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+  }
+  .breadcrumb span { color: var(--text-secondary); }
+  .page-heading {
+    font-family: var(--font-sans);
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
+  }
+  .page-heading-sub {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+  }
+
+  /* ── Section 2: Featured post ── */
+  .s2-featured {
+    padding: 24px 48px;
+    position: relative;
+  }
+  .featured-card {
+    background: var(--surface);
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    overflow: hidden;
+  }
+  .featured-card .img-placeholder { min-height: 300px; }
+  .featured-card .content { padding: 32px; display: flex; flex-direction: column; justify-content: center; }
+
+  /* ── Section 3: Recent posts grid ── */
+  .s3-grid {
+    padding: 24px 48px;
+    position: relative;
+  }
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .post-card {
+    background: var(--surface);
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .post-card .img-placeholder { height: 160px; }
+  .post-card .content { padding: 16px; }
+
+  /* ── Section 4: Content + sidebar ── */
+  .s4-content-sidebar {
+    padding: 24px 48px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 32px;
+    position: relative;
+  }
+
+  .post-list-item {
+    background: var(--surface);
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+  .post-list-item .img-placeholder { min-height: 110px; }
+  .post-list-item .content { padding: 14px; display: flex; flex-direction: column; justify-content: center; }
+
+  .sidebar { display: flex; flex-direction: column; gap: 20px; }
+
+  .sidebar-widget {
+    background: var(--surface);
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    padding: 20px;
+  }
+  .widget-title {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--text-primary);
+  }
+
+  .search-box {
+    display: flex;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .search-box .input-mock {
+    flex: 1;
+    padding: 10px 12px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-muted);
+  }
+  .search-box .btn-mock {
+    background: var(--text-primary);
+    color: white;
+    padding: 10px 14px;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+  }
+
+  .cat-list { list-style: none; }
+  .cat-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-light);
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+  .cat-list li:last-child { border-bottom: none; }
+  .cat-list .count {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    background: var(--tag-bg);
+    padding: 1px 8px;
+    border-radius: 10px;
+  }
+
+  .trending-item {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+    align-items: center;
+  }
+  .trending-item:last-child { margin-bottom: 0; }
+  .trending-item .thumb {
+    width: 52px;
+    height: 52px;
+    background: var(--img-bg);
+    border-radius: 3px;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .trending-item .thumb::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(45deg, transparent, transparent 4px, rgba(0,0,0,0.04) 4px, rgba(0,0,0,0.04) 5px);
+  }
+  .trending-item .info { flex: 1; }
+
+  /* ── Section 5: Pagination ── */
+  .s5-pagination {
+    padding: 16px 48px 32px;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    position: relative;
+  }
+  .page-btn {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-secondary);
+    background: var(--surface);
+  }
+  .page-btn.active { background: var(--text-primary); color: white; border-color: var(--text-primary); }
+
+  /* ── Footer mockup ── */
+  .site-footer {
+    background: #1A1A1A;
+    padding: 32px 48px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  .footer-col .footer-title {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 12px;
+  }
+  .footer-line {
+    height: 8px;
+    background: #333;
+    border-radius: 2px;
+    margin-bottom: 6px;
+  }
+  .footer-line.short { width: 60%; }
+  .footer-bottom {
+    background: #111;
+    padding: 14px 48px;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: #555;
+    text-align: center;
+    letter-spacing: 0.5px;
+  }
+
+  /* ══════════════════════════════════════
+     MOBILE WIREFRAME
+     ══════════════════════════════════════ */
+
+  .m-inner { padding: 0; }
+
+  .m-header {
+    background: #1A1A1A;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .m-header .logo { font-family: var(--font-sans); font-weight: 700; font-size: 16px; color: white; }
+  .m-header .logo span { color: var(--accent); }
+  .m-hamburger { display: flex; flex-direction: column; gap: 3px; }
+  .m-hamburger span { width: 18px; height: 2px; background: #888; border-radius: 1px; }
+
+  .m-breadcrumb {
+    padding: 16px 16px 4px;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--text-muted);
+  }
+  .m-page-title {
+    padding: 4px 16px 16px;
+    font-size: 22px;
+    font-weight: 700;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .m-section { padding: 16px; }
+
+  .m-featured {
+    background: var(--surface);
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+  .m-featured .img-placeholder { height: 180px; }
+  .m-featured .content { padding: 14px; }
+
+  .m-post-card {
+    background: var(--surface);
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    display: grid;
+    grid-template-columns: 100px 1fr;
+  }
+  .m-post-card .img-placeholder { min-height: 90px; }
+  .m-post-card .content { padding: 10px; display: flex; flex-direction: column; justify-content: center; }
+
+  .m-widget {
+    background: var(--surface);
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+
+  .m-pagination {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    padding: 8px 16px 16px;
+  }
+  .m-page-btn {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-secondary);
+    background: var(--surface);
+  }
+  .m-page-btn.active { background: var(--text-primary); color: white; border-color: var(--text-primary); }
+
+  .m-footer {
+    background: #1A1A1A;
+    padding: 20px 16px;
+  }
+  .m-footer .footer-title {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 8px;
+  }
+  .m-footer-bottom {
+    background: #111;
+    padding: 10px 16px;
+    font-family: var(--font-mono);
+    font-size: 8px;
+    color: #555;
+    text-align: center;
+  }
+
+  /* ── Responsive wrapper ── */
+  @media (max-width: 1700px) {
+    .wireframes-container {
+      flex-direction: column;
+      align-items: center;
+    }
+    .wireframe-col.desktop {
+      width: 100%;
+      max-width: 1200px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-title">Wireframe <span>v1.0</span></div>
+<div class="page-subtitle">Technology Blog Page</div>
+<div class="page-desc">Divi Builder layout for imco.dk/devtest — Desktop (1200px) &amp; Mobile (375px)</div>
+
+<div class="wireframes-container">
+
+<!-- ═══════════════════════════════════════
+     DESKTOP WIREFRAME
+     ═══════════════════════════════════════ -->
+<div class="wireframe-col desktop">
+  <div class="device-label">Desktop — 1200px</div>
+  <div class="d-inner">
+
+    <!-- Site header -->
+    <div class="site-header">
+      <div class="logo"><span>N</span>EWS</div>
+      <div class="nav">
+        <span>Home</span>
+        <span>About</span>
+        <span>Category</span>
+        <span>Blog</span>
+        <span class="active">Technology</span>
+        <span>Contact</span>
+      </div>
+      <div style="annotation" class="annotation" style="top:4px;right:180px;">Existing site header — no changes</div>
+    </div>
+
+    <!-- Ad banner -->
+    <div class="ad-banner">YOUR ADVERTISEMENT HERE — 728×90 (existing theme ad slot)</div>
+
+    <!-- SECTION 1: Page Header -->
+    <div class="s1-header">
+      <div class="section-label">Section 1 — Page Header</div>
+      <div class="breadcrumb">Home &gt; Blog &gt; <span>Technology</span></div>
+      <div class="page-heading">Technology</div>
+      <div class="page-heading-sub">Latest news, trends, and insights from the world of technology</div>
+      <div class="annotation" style="top:12px;right:20px;">Dynamic: shows category name</div>
+    </div>
+
+    <!-- SECTION 2: Featured Post -->
+    <div class="s2-featured">
+      <div class="section-label">Section 2 — Featured / Latest Post (Dynamic)</div>
+      <div class="featured-card">
+        <div class="img-placeholder">Featured Image — 16:9</div>
+        <div class="content">
+          <div class="cat-tag">Technology</div>
+          <div class="text-line title-lg" style="width:90%;margin-bottom:10px;"></div>
+          <div class="text-line title" style="width:60%;margin-bottom:14px;"></div>
+          <div class="text-line" style="width:95%;"></div>
+          <div class="text-line" style="width:90%;"></div>
+          <div class="text-line short" style="margin-bottom:16px;"></div>
+          <div class="meta-line">
+            <div class="meta-avatar"></div>
+            <span>Author Name</span>
+            <div class="meta-dot"></div>
+            <span>May 14, 2026</span>
+            <div class="meta-dot"></div>
+            <span>5 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="annotation" style="top:12px;right:20px;">Pulls latest post from Technology category via WP loop</div>
+    </div>
+
+    <!-- SECTION 3: Recent Posts Grid -->
+    <div class="s3-grid">
+      <div class="section-label">Section 3 — Recent Posts Grid (Dynamic — 6 posts, 3 columns)</div>
+      <div class="posts-grid">
+        <div class="post-card">
+          <div class="img-placeholder" style="height:160px;">Thumbnail</div>
+          <div class="content">
+            <div class="cat-tag">Technology</div>
+            <div class="text-line title" style="width:90%;"></div>
+            <div class="text-line title" style="width:55%;margin-bottom:10px;"></div>
+            <div class="text-line" style="width:95%;"></div>
+            <div class="text-line short" style="margin-bottom:10px;"></div>
+            <div class="meta-line">
+              <div class="meta-avatar"></div>
+              <span>Author</span>
+              <div class="meta-dot"></div>
+              <span>Date</span>
+            </div>
+          </div>
+        </div>
+        <div class="post-card">
+          <div class="img-placeholder" style="height:160px;">Thumbnail</div>
+          <div class="content">
+            <div class="cat-tag">Technology</div>
+            <div class="text-line title" style="width:85%;"></div>
+            <div class="text-line title" style="width:50%;margin-bottom:10px;"></div>
+            <div class="text-line" style="width:90%;"></div>
+            <div class="text-line short" style="margin-bottom:10px;"></div>
+            <div class="meta-line">
+              <div class="meta-avatar"></div>
+              <span>Author</span>
+              <div class="meta-dot"></div>
+              <span>Date</span>
+            </div>
+          </div>
+        </div>
+        <div class="post-card">
+          <div class="img-placeholder" style="height:160px;">Thumbnail</div>
+          <div class="content">
+            <div class="cat-tag">Technology</div>
+            <div class="text-line title" style="width:80%;"></div>
+            <div class="text-line title" style="width:65%;margin-bottom:10px;"></div>
+            <div class="text-line" style="width:92%;"></div>
+            <div class="text-line short" style="margin-bottom:10px;"></div>
+            <div class="meta-line">
+              <div class="meta-avatar"></div>
+              <span>Author</span>
+              <div class="meta-dot"></div>
+              <span>Date</span>
+            </div>
+          </div>
+        </div>
+        <div class="post-card">
+          <div class="img-placeholder" style="height:160px;">Thumbnail</div>
+          <div class="content">
+            <div class="cat-tag">Technology</div>
+            <div class="text-line title" style="width:88%;"></div>
+            <div class="text-line title" style="width:45%;margin-bottom:10px;"></div>
+            <div class="text-line" style="width:93%;"></div>
+            <div class="text-line short" style="margin-bottom:10px;"></div>
+            <div class="meta-line">
+              <div class="meta-avatar"></div>
+              <span>Author</span>
+              <div class="meta-dot"></div>
+              <span>Date</span>
+            </div>
+          </div>
+        </div>
+        <div class="post-card">
+          <div class="img-placeholder" style="height:160px;">Thumbnail</div>
+          <div class="content">
+            <div class="cat-tag">Technology</div>
+            <div class="text-line title" style="width:75%;"></div>
+            <div class="text-line title" style="width:60%;margin-bottom:10px;"></div>
+            <div class="text-line" style="width:88%;"></div>
+            <div class="text-line short" style="margin-bottom:10px;"></div>
+            <div class="meta-line">
+              <div class="meta-avatar"></div>
+              <span>Author</span>
+              <div class="meta-dot"></div>
+              <span>Date</span>
+            </div>
+          </div>
+        </div>
+        <div class="post-card">
+          <div class="img-placeholder" style="height:160px;">Thumbnail</div>
+          <div class="content">
+            <div class="cat-tag">Technology</div>
+            <div class="text-line title" style="width:82%;"></div>
+            <div class="text-line title" style="width:48%;margin-bottom:10px;"></div>
+            <div class="text-line" style="width:91%;"></div>
+            <div class="text-line short" style="margin-bottom:10px;"></div>
+            <div class="meta-line">
+              <div class="meta-avatar"></div>
+              <span>Author</span>
+              <div class="meta-dot"></div>
+              <span>Date</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="annotation" style="top:12px;right:20px;">Divi Blog module — 3 col grid, filtered to Technology category</div>
+    </div>
+
+    <!-- SECTION 4: Content + Sidebar -->
+    <div style="padding: 0 48px;">
+      <div class="section-label">Section 4 — More Posts (2/3) + Sidebar (1/3)</div>
+    </div>
+    <div class="s4-content-sidebar">
+
+      <!-- Left: Post list -->
+      <div class="post-list">
+        <div class="post-list-item">
+          <div class="img-placeholder">Thumb</div>
+          <div class="content">
+            <div class="cat-tag">Technology</div>
+            <div class="text-line title" style="width:85%;"></div>
+            <div class="text-line" style="width:95%;"></div>
+            <div class="text-line short"></div>
+            <div class="meta-line" style="margin-top:4px;">
+              <span>Author</span><div class="meta-dot"></div><span>Date</span>
+            </div>
+          </div>
+        </div>
+        <div class="post-list-item">
+          <div class="img-placeholder">Thumb</div>
+          <div class="content">
+            <div class="cat-tag">Technology</div>
+            <div class="text-line title" style="width:78%;"></div>
+            <div class="text-line" style="width:90%;"></div>
+            <div class="text-line short"></div>
+            <div class="meta-line" style="margin-top:4px;">
+              <span>Author</span><div class="meta-dot"></div><span>Date</span>
+            </div>
+          </div>
+        </div>
+        <div class="post-list-item">
+          <div class="img-placeholder">Thumb</div>
+          <div class="content">
+            <div class="cat-tag">Technology</div>
+            <div class="text-line title" style="width:82%;"></div>
+            <div class="text-line" style="width:88%;"></div>
+            <div class="text-line short"></div>
+            <div class="meta-line" style="margin-top:4px;">
+              <span>Author</span><div class="meta-dot"></div><span>Date</span>
+            </div>
+          </div>
+        </div>
+        <div class="post-list-item">
+          <div class="img-placeholder">Thumb</div>
+          <div class="content">
+            <div class="cat-tag">Technology</div>
+            <div class="text-line title" style="width:70%;"></div>
+            <div class="text-line" style="width:92%;"></div>
+            <div class="text-line short"></div>
+            <div class="meta-line" style="margin-top:4px;">
+              <span>Author</span><div class="meta-dot"></div><span>Date</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Sidebar -->
+      <div class="sidebar">
+        <!-- Search -->
+        <div class="sidebar-widget">
+          <div class="widget-title">Search</div>
+          <div class="search-box">
+            <div class="input-mock">Search articles...</div>
+            <div class="btn-mock">GO</div>
+          </div>
+        </div>
+
+        <!-- Categories -->
+        <div class="sidebar-widget" style="position:relative;">
+          <div class="widget-title">Categories</div>
+          <ul class="cat-list">
+            <li>Technology <span class="count">2</span></li>
+            <li>Business <span class="count">3</span></li>
+            <li>Entertainment <span class="count">6</span></li>
+            <li>Sports <span class="count">3</span></li>
+            <li>Fashion <span class="count">2</span></li>
+            <li>Photography <span class="count">2</span></li>
+            <li>Life Style <span class="count">4</span></li>
+            <li>Industry <span class="count">2</span></li>
+          </ul>
+          <div class="annotation" style="top:8px;right:-8px;transform:translateX(100%);">Dynamic: auto-updates with WP categories</div>
+        </div>
+
+        <!-- Trending -->
+        <div class="sidebar-widget" style="position:relative;">
+          <div class="widget-title">Trending Posts</div>
+          <div class="trending-item">
+            <div class="thumb"></div>
+            <div class="info">
+              <div class="text-line title" style="width:90%;height:11px;"></div>
+              <div class="text-line tiny" style="margin-top:4px;"></div>
+            </div>
+          </div>
+          <div class="trending-item">
+            <div class="thumb"></div>
+            <div class="info">
+              <div class="text-line title" style="width:85%;height:11px;"></div>
+              <div class="text-line tiny" style="margin-top:4px;"></div>
+            </div>
+          </div>
+          <div class="trending-item">
+            <div class="thumb"></div>
+            <div class="info">
+              <div class="text-line title" style="width:80%;height:11px;"></div>
+              <div class="text-line tiny" style="margin-top:4px;"></div>
+            </div>
+          </div>
+          <div class="annotation" style="top:8px;right:-8px;transform:translateX(100%);">Dynamic: recent/popular posts from WP</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 5: Pagination -->
+    <div style="padding: 0 48px 0;">
+      <div class="section-label">Section 5 — Pagination</div>
+    </div>
+    <div class="s5-pagination">
+      <div class="page-btn">&lsaquo;</div>
+      <div class="page-btn active">1</div>
+      <div class="page-btn">2</div>
+      <div class="page-btn">3</div>
+      <div class="page-btn">4</div>
+      <div class="page-btn">&rsaquo;</div>
+    </div>
+
+    <!-- Footer -->
+    <div class="site-footer">
+      <div class="footer-col">
+        <div class="footer-title">About</div>
+        <div class="footer-line"></div>
+        <div class="footer-line"></div>
+        <div class="footer-line short"></div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-title">Quick Links</div>
+        <div class="footer-line short"></div>
+        <div class="footer-line short"></div>
+        <div class="footer-line short"></div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-title">Social</div>
+        <div class="footer-line short"></div>
+        <div class="footer-line short"></div>
+      </div>
+    </div>
+    <div class="footer-bottom">Existing site footer — no changes</div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     MOBILE WIREFRAME
+     ═══════════════════════════════════════ -->
+<div class="wireframe-col mobile">
+  <div class="device-label">Mobile — 375px</div>
+  <div class="m-inner">
+
+    <!-- Mobile header -->
+    <div class="m-header">
+      <div class="logo"><span>N</span>EWS</div>
+      <div class="m-hamburger"><span></span><span></span><span></span></div>
+    </div>
+
+    <!-- Breadcrumb + title -->
+    <div class="m-breadcrumb">Home &gt; Blog &gt; Technology</div>
+    <div class="m-page-title">Technology</div>
+
+    <!-- Mobile section labels -->
+    <div class="m-section" style="padding-bottom:0;">
+      <div class="section-label">Featured Post</div>
+    </div>
+
+    <!-- Featured post -->
+    <div style="padding: 0 16px 16px;">
+      <div class="m-featured">
+        <div class="img-placeholder" style="height:180px;">Featured Image</div>
+        <div class="content">
+          <div class="cat-tag">Technology</div>
+          <div class="text-line title" style="width:90%;"></div>
+          <div class="text-line title" style="width:55%;margin-bottom:10px;"></div>
+          <div class="text-line" style="width:95%;"></div>
+          <div class="text-line short" style="margin-bottom:8px;"></div>
+          <div class="meta-line">
+            <div class="meta-avatar"></div>
+            <span>Author</span>
+            <div class="meta-dot"></div>
+            <span>Date</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent posts (stacked) -->
+    <div style="padding: 0 16px;">
+      <div class="section-label">Recent Posts (stacked on mobile)</div>
+    </div>
+    <div style="padding: 8px 16px;">
+      <div class="m-post-card">
+        <div class="img-placeholder">Thumb</div>
+        <div class="content">
+          <div class="cat-tag" style="font-size:8px;padding:2px 6px;">Tech</div>
+          <div class="text-line title" style="width:90%;height:11px;"></div>
+          <div class="text-line tiny" style="margin-top:4px;"></div>
+        </div>
+      </div>
+      <div class="m-post-card">
+        <div class="img-placeholder">Thumb</div>
+        <div class="content">
+          <div class="cat-tag" style="font-size:8px;padding:2px 6px;">Tech</div>
+          <div class="text-line title" style="width:85%;height:11px;"></div>
+          <div class="text-line tiny" style="margin-top:4px;"></div>
+        </div>
+      </div>
+      <div class="m-post-card">
+        <div class="img-placeholder">Thumb</div>
+        <div class="content">
+          <div class="cat-tag" style="font-size:8px;padding:2px 6px;">Tech</div>
+          <div class="text-line title" style="width:80%;height:11px;"></div>
+          <div class="text-line tiny" style="margin-top:4px;"></div>
+        </div>
+      </div>
+      <div class="m-post-card">
+        <div class="img-placeholder">Thumb</div>
+        <div class="content">
+          <div class="cat-tag" style="font-size:8px;padding:2px 6px;">Tech</div>
+          <div class="text-line title" style="width:88%;height:11px;"></div>
+          <div class="text-line tiny" style="margin-top:4px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar widgets (full-width on mobile) -->
+    <div style="padding: 8px 16px;">
+      <div class="section-label">Sidebar (full-width on mobile)</div>
+
+      <div class="m-widget">
+        <div class="widget-title">Search</div>
+        <div class="search-box">
+          <div class="input-mock">Search...</div>
+          <div class="btn-mock">GO</div>
+        </div>
+      </div>
+
+      <div class="m-widget">
+        <div class="widget-title">Categories</div>
+        <ul class="cat-list">
+          <li>Technology <span class="count">2</span></li>
+          <li>Business <span class="count">3</span></li>
+          <li>Entertainment <span class="count">6</span></li>
+          <li>Sports <span class="count">3</span></li>
+        </ul>
+      </div>
+
+      <div class="m-widget">
+        <div class="widget-title">Trending</div>
+        <div class="trending-item">
+          <div class="thumb"></div>
+          <div class="info">
+            <div class="text-line title" style="width:90%;height:10px;"></div>
+            <div class="text-line tiny" style="margin-top:3px;"></div>
+          </div>
+        </div>
+        <div class="trending-item">
+          <div class="thumb"></div>
+          <div class="info">
+            <div class="text-line title" style="width:85%;height:10px;"></div>
+            <div class="text-line tiny" style="margin-top:3px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="m-pagination">
+      <div class="m-page-btn">&lsaquo;</div>
+      <div class="m-page-btn active">1</div>
+      <div class="m-page-btn">2</div>
+      <div class="m-page-btn">3</div>
+      <div class="m-page-btn">&rsaquo;</div>
+    </div>
+
+    <!-- Footer -->
+    <div class="m-footer">
+      <div class="footer-title">Existing site footer</div>
+      <div class="footer-line" style="background:#333;"></div>
+      <div class="footer-line short" style="background:#333;"></div>
+    </div>
+    <div class="m-footer-bottom">Footer — no changes</div>
+
+  </div>
+</div>
+
+</div><!-- /wireframes-container -->
+
+</body>
+</html>
